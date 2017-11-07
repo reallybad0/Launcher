@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_2510"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="433.5" Width="879"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        >
     <Grid>
-        
+        <ListBox Name="trys" HorizontalAlignment="Left" Height="276" Margin="48,94,0,0" VerticalAlignment="Top" Width="324"/>
+        <Button Content="Otevřít" HorizontalAlignment="Left" Height="61" Margin="449,158,0,0" VerticalAlignment="Top" Width="313" Click="Spoustec_Click"/>
+        <ComboBox Name="typsouboru"  HorizontalAlignment="Left" Margin="78,40,0,0" VerticalAlignment="Top" Width="232" Height="36" SelectionChanged="typsouboru_SelectionChanged"/>
+        <Button Name="infowrite" Content="Vypsat Informace" HorizontalAlignment="Left" Height="44" Margin="442,281,0,0" VerticalAlignment="Top" Width="201" Click="infowrite_Click"/>
+
     </Grid>
 </Window>
