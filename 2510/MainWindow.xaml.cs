@@ -24,8 +24,21 @@ namespace _2510
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        // .csproj
+        //http://www.wpf-tutorial.com/dialogs/the-openfiledialog/
+        //adresy
+        /*
+         using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+{
+    System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+}
+
+ */
         string[] filesa;
-        string[] typy = new string[] { "*.exe","*.sln","*.txt","*.csv"};
+
+        //trys = seznam!  
+        string[] typy = new string[] { "*.exe","*.sln","*.txt","*.csv","*.csproj"};
         Searcher finder = new Searcher();
         string lokace = "D:\\fiserkl15\\";
 
@@ -36,6 +49,28 @@ namespace _2510
             string typ = "*.exe";
             filesa = finder.SearchFiles(lokace, typ);
             ZapisDoListu();
+
+
+            filesa = finder.SearchFiles(lokace, typy[4]);
+            for(int u = 0; u < filesa.Count(); u++)
+            {
+                //string spoustec = GenSpoust();
+                string spoustec = filesa[u];
+                string slozka = System.IO.Path.GetDirectoryName(spoustec);
+
+                string adresa = slozka + "/info"+u+".txt";
+                if (!File.Exists(adresa))
+                {
+                    string textInfoClanku = "Informace o projektu";
+                    File.WriteAllText(adresa, textInfoClanku);
+                }
+                //string slozka = System.IO.Path.GetDirectoryName(spoustec);
+
+
+            }
+
+
+            //File.ReadAllText();
         }
 
         private void Spoustec_Click(object sender, RoutedEventArgs e)
@@ -64,8 +99,20 @@ namespace _2510
         private void infowrite_Click(object sender, RoutedEventArgs e)
         {
             
-            //File.ReadAllText();
+            bool eh = CheckIfExists();
+            if (eh == true)
+            {
+                string spoustec = GenSpoust();
+                string slozka = System.IO.Path.GetDirectoryName(spoustec);
+                MessageBox.Show(slozka);
 
+                //if (slozka)
+                vypisinfo.Text = File.ReadAllText(spoustec);
+            }
+            else
+            {
+                MessageBox.Show("Nezvolili jste žádný soubor!");
+            }
         }
 
         public bool ZapisDoListu()
@@ -105,6 +152,18 @@ namespace _2510
             string spoustec = filesa[index];
             //MessageBox.Show("Zvolili jste soubor " + zvoleno);
             return spoustec;
+        }
+
+        private void Ulozit_Click(object sender, RoutedEventArgs e)
+        {
+            //ONCLICK, ULOŽÍ ROZEPSÁNO
+            //https://stackoverflow.com/questions/5603274/how-to-overwrite-not-append-a-text-file-in-asp-net-using-c-sharp
+            //System.IO.File.WriteAllText(, vypisinfo.Text);
+            //Schovat button! 
+            //!!!!!!!!!!!!!PŘEPÍŠE VŠECHNY PROTOŽE SE JMENUJOU STEJNĚ 
+            string path = GenSpoust();
+            System.IO.File.WriteAllText(path , vypisinfo.Text);
+            MessageBox.Show("Soubor byl uložen");
         }
     }
     class Searcher
